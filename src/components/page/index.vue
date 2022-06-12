@@ -2,13 +2,13 @@
 
 <script setup lang="ts">
 import { PayloadEventOpenMenu } from './page.interface'
+import Popup from '../popup/index.vue'
 
 defineProps({ statePage: { default: 'edit', type: String } })
 
 const emit = defineEmits<{
   (event: 'OpenSelectMenu', payload: PayloadEventOpenMenu): void;
   (event: 'OpenContextMenu', payload: PayloadEventOpenMenu): void;
-
 }>()
 
 
@@ -27,6 +27,8 @@ function handlerContextMenu(e: MouseEvent): void {
   <div class="paga" @pointerup="handlerPointerUp" :contenteditable="
   statePage == 'edit' ? 'true' : statePage == 'no-edit' ? 'false' : 'false'" @contextmenu="handlerContextMenu">
     <h1>New Page</h1>
+
+    
   </div>
 </template>
 <style scope>
@@ -40,5 +42,6 @@ function handlerContextMenu(e: MouseEvent): void {
   padding-left: 15px;
   padding-top: 15px;
   box-shadow: var(--shadow-light);
+  
 }
 </style>

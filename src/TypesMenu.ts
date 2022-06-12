@@ -1,6 +1,6 @@
 import { createMenu } from "./components/ContextMenu/menu.class"
 import { ItemsMenuInterface, MenuInterface } from './components/ContextMenu/menu.interface'
-import { ModalState } from "./components/Modal/modal.class"
+import { PopupState } from "./components/popup/popup.class"
 import { globalState } from './store/index'
 
 
@@ -32,8 +32,12 @@ const listItemsSelectMenu: Array<ItemsMenuInterface> = [
       {
         title: 'adicionar link',
         icon: 'link',
-        click(event: MouseEvent, payload: ModalState) {
+        click(event: MouseEvent, payload: PopupState) {
+          console.log(document.getSelection()?.anchorNode)
           payload.isOpen = true
+          payload.posX = event.clientX
+          payload.posY = event.clientY
+          console.log(event)
         }
       }
     ],

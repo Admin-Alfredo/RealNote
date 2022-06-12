@@ -16,6 +16,8 @@ import { createSideBarState } from "./components/SideBar/sidebar.class";
 import Modal from "./components/Modal/index.vue";
 import { createModalState } from "./components/Modal/modal.class";
 import TextInput from "./components/Form/TextInput.vue";
+import Popup from "./components/popup/index.vue";
+import { createPopupState } from "./components/popup/popup.class";
 
 
 
@@ -29,11 +31,15 @@ const stateContextMenu = createMenuState()
 
 const stateSideBar = createSideBarState()
 
+const statePopupLink = createPopupState()
+
 const stateModalLink = createModalState(false, true, 350)
 stateModalLink.isPixal = true
 
 
 function handlerOpenSelectMenu(payload: PayloadEventOpenMenu): void {
+  statePopupLink.posX = payload.x
+  statePopupLink.isOpen = false
   if (document.getSelection()?.type == 'Range' && !stateSelectMenu.isOpen) {
 
     stateSelectMenu.posX = payload.x
@@ -45,7 +51,7 @@ function handlerOpenSelectMenu(payload: PayloadEventOpenMenu): void {
   }
 }
 function handlerOpenContextMenu(payload: PayloadEventOpenMenu): void {
-
+  console.log(payload)
   if (!stateContextMenu.isOpen) {
     stateContextMenu.posX = payload.x
     stateContextMenu.posY = payload.y
@@ -69,13 +75,16 @@ const disabled = ref(false)
   <ContentMain v-if="globalState.docActived">
     <SideBar :state="stateSideBar"></SideBar>
     <WapperPage>
+      <Popup :state="statePopupLink">
+        <TextInput/> <span style="font-size: 2rem;margin-left: 10px;cursor:pointer;padding: 1px 10px" @click="() => statePopupLink.isOpen = false">&times;</span>
+      </Popup>
       <Page v-for="(p, i) in globalState.docActived?.pages" v-on:OpenSelectMenu="handlerOpenSelectMenu"
-        v-on:OpenContextMenu="handlerOpenContextMenu" />
+        v-on:openContextMenu="handlerOpenContextMenu" />
     </WapperPage>
   </ContentMain>
   <Navigation v-else></Navigation>
  
-  <MenuCoxtent :menuState="stateSelectMenu" :menu="selectMenu" :payload="stateModalLink" />
+  <MenuCoxtent :menuState="stateSelectMenu" :menu="selectMenu" :payload="statePopupLink" />
   <MenuCoxtent :menuState="stateContextMenu" :menu="contextMenu" />
 
   <Modal :state="stateModalLink">

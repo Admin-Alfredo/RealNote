@@ -26,7 +26,7 @@ function handlerContextMenu(e: MouseEvent): void {
 <template>
   <div class="paga" @pointerup="handlerPointerUp" :contenteditable="
   statePage == 'edit' ? 'true' : statePage == 'no-edit' ? 'false' : 'false'" @contextmenu="handlerContextMenu">
-    <h1>New Page</h1>
+    <p>como vai</p><h1>New Page</h1>
 
     
   </div>

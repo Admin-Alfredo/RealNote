@@ -41,7 +41,7 @@ function handlerOpenSelectMenu(payload: PayloadEventOpenMenu): void {
   statePopupLink.posX = payload.x
   statePopupLink.isOpen = false
   if (document.getSelection()?.type == 'Range' && !stateSelectMenu.isOpen) {
-
+    console.log(document.getSelection())
     stateSelectMenu.posX = payload.x
     stateSelectMenu.posY = payload.y
     stateSelectMenu.isOpen = true
